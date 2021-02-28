@@ -8,6 +8,8 @@ from spotipy import Spotify
 from bs4 import BeautifulSoup
 from dwytsongs.utils import *
 from dwytsongs import exceptions
+from youtubesearchpython import VideosSearch
+
 
 stock_output = "%s/Songs" % os.getcwd()
 stock_recursive_download = False
@@ -20,19 +22,26 @@ spo = Spotify(
 
 def download(directory, name, recursive_download, not_interface, datas):
 	song = "{} - {}".format(datas['music'], datas['artist'])
+	down = False
 
-	body = request(
-		"https://www.youtube.com/results?search_query=%s" % song.replace("#", "")
-	).text
+	body = VideosSearch(song.replace("#", ""), limit = 2)
 
 	links = BeautifulSoup(body, "html.parser").find_all("a")
 
 	for link in links:
 		href = link.get("href")
 
+		print(link)
+
 		if len(href) == 20:
 			down = href
 			break
+	
+	print(videosSearch.result())
+	
+	if down == False:
+		print("No Link Found!")
+		exit()
 
 	out_yt = directory + down
 	out = "%s.mp3" % name
