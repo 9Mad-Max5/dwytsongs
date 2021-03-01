@@ -24,6 +24,7 @@ spo = Spotify(
 
 def download(directory, name, recursive_download, not_interface, datas):
     song = "{} - {}".format(datas['music'], datas['artist'])
+    down = False
 
     body = VideosSearch(song.replace("#", ""), limit=2)
     results = body.result()
@@ -32,6 +33,10 @@ def download(directory, name, recursive_download, not_interface, datas):
         if len(link) == 43:
             down = link
             break
+
+    if down == False:
+        print("No Link Found!")
+        exit()
 
     out_yt = directory + down
     out = "%s.mp3" % name
