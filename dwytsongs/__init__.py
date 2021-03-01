@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import os
+import json
 import pafy
 import ffmpeg
 from tqdm import tqdm
@@ -25,19 +26,20 @@ def download(directory, name, recursive_download, not_interface, datas):
 	down = False
 
 	body = VideosSearch(song.replace("#", ""), limit = 2)
+	json = json.loads(body)
+	link = json['result']['link']
+	#links = BeautifulSoup(body, "html.parser").find_all("a")
 
-	links = BeautifulSoup(body, "html.parser").find_all("a")
+	#for link in links:
+	#	href = link.get("href")
 
-	for link in links:
-		href = link.get("href")
+	#	print(link)
 
-		print(link)
-
-		if len(href) == 20:
-			down = href
-			break
+	#	if len(href) == 20:
+	#		down = href
+	#		break
 	
-	print(videosSearch.result())
+	print(link)
 	
 	if down == False:
 		print("No Link Found!")

@@ -9,5 +9,5 @@ setup(
 	author_email = "An0nimia@protonmail.com",
 	url = "https://github.com/An0nimia/dwytsongs",
 	packages = ["dwytsongs"],
-	install_requires = ["bs4", "ffmpeg-python", "mutagen", "pafy", "requests", "spotipy", "tqdm", "youtube-dl"]
+	install_requires = ["bs4", "ffmpeg-python", "mutagen", "pafy", "requests", "spotipy", "tqdm", "youtube-dl","youtube-search-python"]
 )
