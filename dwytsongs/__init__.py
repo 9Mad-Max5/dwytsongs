@@ -34,10 +34,6 @@ def download(directory, name, recursive_download, not_interface, datas):
             down = link
             break
 
-    if down == False:
-        print("No Link Found!")
-        exit()
-
     out_yt = directory + down
     out = "%s.mp3" % name
 
