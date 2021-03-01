@@ -38,7 +38,9 @@ def download(directory, name, recursive_download, not_interface, datas):
         print("No Link Found!")
         exit()
 
-    out_yt = directory + down
+    ytdown = down
+    ytdown.replace('https://www.youtube.com','')
+    out_yt = directory + ytdown
     out = "%s.mp3" % name
 
     try:
