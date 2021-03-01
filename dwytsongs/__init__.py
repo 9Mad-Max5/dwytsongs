@@ -29,7 +29,6 @@ def download(directory, name, recursive_download, not_interface, datas):
     results = body.result()
     for result in results['result']:
         link = result['link']
-        print(link)
         if len(link) == 43:
             down = link
             break
