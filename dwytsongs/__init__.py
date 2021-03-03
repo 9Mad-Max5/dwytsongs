@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import os
-import json
 import pafy
 import ffmpeg
 from tqdm import tqdm
@@ -39,7 +38,7 @@ def download(directory, name, recursive_download, not_interface, datas):
         exit()
 
     ytdown = down
-    ytdown.replace('https://www.youtube.com','')
+    ytdown.replace('https://www.youtube.com', '')
     out_yt = directory + ytdown
     out = "%s.mp3" % name
 
@@ -180,24 +179,29 @@ def download_trackdee(
     datas['isrc'] = url['isrc']
     album = var_excape(datas['album'])
 
+    # Mad-Max Replace Artist by using the album Artist. Get rid of Fearturings
+    if datas['ar_album'] == "Various Artists":
+        datas['ar_album'] = datas['artist']
+    else:
+        datas['artist'] = datas['ar_album']
+
+    # Mad-Max A more useable Structure
     directory = (
-        "%s%s %s/"
+        "%s/%s/"
         % (
             output,
-            album,
-            url1['upc']
+            datas['artist']
         )
     )
-
     check_dir(directory)
 
+    # Mad-Max Clear song name to Determine them
     name = (
-        "%s%s CD %s TRACK %s"
+        "%s%s - %s"
         % (
             directory,
-            album,
-            datas['discnum'],
-            datas['tracknum']
+            datas['artist'],
+            datas['music']
         )
     )
 
