@@ -37,9 +37,10 @@ def download(directory, name, recursive_download, not_interface, datas):
         print("No Link Found!")
         exit()
 
-    ytdown = down
-    ytdown.replace('https://www.youtube.com', '')
+    ytdown = down.replace('https://www.youtube.com/', '')
+    print(ytdown)
     out_yt = directory + ytdown
+    print(out_yt)
     out = "%s.mp3" % name
 
     try:
@@ -193,7 +194,7 @@ def download_trackdee(
             datas['artist']
         )
     )
-    
+
     check_dir(directory)
 
     # Mad-Max Clear song name to Determine them
