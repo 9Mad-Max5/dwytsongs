@@ -193,6 +193,7 @@ def download_trackdee(
             datas['artist']
         )
     )
+    
     check_dir(directory)
 
     # Mad-Max Clear song name to Determine them
@@ -286,12 +287,18 @@ def download_albumdee(
     datas['ar_album'] = " & ".join(datas['ar_album'])
     album = var_excape(datas['album'])
 
+    # Mad-Max Replace Artist by using the album Artist. Get rid of Fearturings
+    if datas['ar_album'] == "Various Artists":
+        datas['ar_album'] = datas['artist']
+    else:
+        datas['artist'] = datas['ar_album']
+
+    # Mad-Max A more useable Structure
     directory = (
-        "%s%s %s/"
+        "%s/%s/"
         % (
             output,
-            album,
-            url['upc']
+            datas['artist']
         )
     )
 
@@ -499,24 +506,30 @@ def download_trackspo(
     datas['isrc'] = url['external_ids']['isrc']
     album = var_excape(datas['album'])
 
+    # Mad-Max Replace Artist by using the album Artist. Get rid of Fearturings
+    if datas['ar_album'] == "Various Artists":
+        datas['ar_album'] = datas['artist']
+    else:
+        datas['artist'] = datas['ar_album']
+
+    # Mad-Max A more useable Structure
     directory = (
-        "%s%s %s/"
+        "%s/%s/"
         % (
             output,
-            album,
-            url1['external_ids']['upc']
+            datas['artist']
         )
     )
 
     check_dir(directory)
 
+    # Mad-Max Clear song name to Determine them
     name = (
-        "%s%s CD %s TRACK %s"
+        "%s%s - %s"
         % (
             directory,
-            album,
-            datas['discnum'],
-            datas['tracknum']
+            datas['artist'],
+            datas['music']
         )
     )
 
@@ -578,12 +591,18 @@ def download_albumspo(
     detas['isrc'] = ""
     album = var_excape(detas['album'])
 
+    # Mad-Max Replace Artist by using the album Artist. Get rid of Fearturings
+    if datas['ar_album'] == "Various Artists":
+        datas['ar_album'] = datas['artist']
+    else:
+        datas['artist'] = datas['ar_album']
+
+    # Mad-Max A more useable Structure
     directory = (
-        "%s%s %s/"
+        "%s/%s/"
         % (
             output,
-            album,
-            url['external_ids']['upc']
+            datas['artist']
         )
     )
 
