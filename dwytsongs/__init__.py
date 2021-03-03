@@ -38,9 +38,7 @@ def download(directory, name, recursive_download, not_interface, datas):
         exit()
 
     ytdown = down.replace('https://www.youtube.com/', '')
-    print(ytdown)
     out_yt = directory + ytdown
-    print(out_yt)
     out = "%s.mp3" % name
 
     try:
@@ -100,7 +98,7 @@ def download(directory, name, recursive_download, not_interface, datas):
 
 def download_trackdee(
         URL,
-        output=stock_output + "/",
+        output=stock_output,
         recursive_download=stock_recursive_download,
         not_interface=stock_not_interface
 ):
@@ -217,7 +215,7 @@ def download_trackdee(
 
 def download_albumdee(
         URL,
-        output=stock_output + "/",
+        output=stock_output,
         recursive_download=stock_recursive_download,
         not_interface=stock_not_interface,
         zips=stock_zip
@@ -403,7 +401,7 @@ def download_albumdee(
 
 def download_playlistdee(
         URL,
-        output=stock_output + "/",
+        output=stock_output,
         recursive_download=stock_recursive_download,
         not_interface=stock_not_interface,
         zips=stock_zip
@@ -443,7 +441,7 @@ def download_playlistdee(
 
 def download_trackspo(
         URL,
-        output=stock_output + "/",
+        output=stock_output,
         recursive_download=stock_recursive_download,
         not_interface=stock_not_interface
 ):
@@ -544,7 +542,7 @@ def download_trackspo(
 
 def download_albumspo(
         URL,
-        output=stock_output + "/",
+        output=stock_output,
         recursive_download=stock_recursive_download,
         not_interface=stock_not_interface,
         zips=stock_zip
@@ -694,7 +692,7 @@ def download_albumspo(
 
 def download_playlistspo(
         URL,
-        output=stock_output + "/",
+        output=stock_output,
         recursive_download=stock_recursive_download,
         not_interface=stock_not_interface,
         zips=stock_zip
@@ -759,7 +757,7 @@ def download_playlistspo(
 
 def download_name(
         artist, song,
-        output=stock_output + "/",
+        output=stock_output,
         recursive_download=stock_recursive_download,
         not_interface=stock_not_interface
 ):
