@@ -11,7 +11,7 @@ from dwytsongs import exceptions
 from configparser import ConfigParser
 from youtubesearchpython import VideosSearch
 
-ini_file = "settings.ini"
+ini_file = "/data/settings.ini"
 # stock_output = "%s/Songs" % os.getcwd()
 stock_recursive_download = False
 stock_not_interface = False
