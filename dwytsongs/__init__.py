@@ -8,13 +8,27 @@ from spotipy import Spotify
 from bs4 import BeautifulSoup
 from dwytsongs.utils import *
 from dwytsongs import exceptions
+from configparser import ConfigParser
 from youtubesearchpython import VideosSearch
 
-
-stock_output = "%s/Songs" % os.getcwd()
+ini_file = "settings.ini"
+# stock_output = "%s/Songs" % os.getcwd()
 stock_recursive_download = False
 stock_not_interface = False
 stock_zip = False
+
+config = ConfigParser()
+config.read(ini_file)
+
+try:
+    # deezer_token = config['login']['token']
+    plexnaming = config['storing_rules']['plexnaming']
+    humannaming = config['storing_rules']['humannaming']
+    stock_output = config['storing_rules']['output']
+except KeyError:
+    print("Something went wrong with configuration file")
+    exit()
+
 
 spo = Spotify(
     auth=generate_token()
@@ -178,32 +192,75 @@ def download_trackdee(
     datas['isrc'] = url['isrc']
     album = var_excape(datas['album'])
 
-    # Mad-Max Replace Artist by using the album Artist. Get rid of Fearturings
-    if datas['ar_album'] == "Various Artists":
-        datas['ar_album'] = datas['artist']
-    else:
-        datas['artist'] = datas['ar_album']
-
-    # Mad-Max A more useable Structure
-    directory = (
-        "%s/%s/"
-        % (
-            output,
-            datas['artist']
+    # Plex friendly structure
+    if plexnaming == True:
+        directory = (
+            "%s/%s/%s/"
+            % (
+                output,
+                datas['ar_album'],
+                album
+            )
         )
-    )
+
+        name = (
+            "%s%s - %s"
+            % (
+                directory,
+                datas['tracknum'],
+                datas['music']
+            )
+        )
+
+        # Mad-Max A more useable humandreadable Structure
+    elif humannaming == True:
+        # Mad-Max Replace Artist by using the album Artist. Get rid of Fearturings
+        if datas['ar_album'] == "Various Artists":
+            datas['ar_album'] = datas['artist']
+        else:
+            datas['artist'] = datas['ar_album']
+
+        directory = (
+            "%s/%s/"
+            % (
+                output,
+                datas['ar_album']
+            )
+        )
+
+        name = (
+            "%s%s - %s"
+            % (
+                directory,
+                datas['ar_album'],
+                datas['music']
+            )
+        )
+    else:
+        # I didn't found the original code for the naming so this one is the fallback
+        if datas['ar_album'] == "Various Artists":
+            datas['ar_album'] = datas['artist']
+        else:
+            datas['artist'] = datas['ar_album']
+
+        directory = (
+            "%s/%s/"
+            % (
+                output,
+                datas['ar_album']
+            )
+        )
+
+        name = (
+            "%s%s - %s"
+            % (
+                directory,
+                datas['ar_album'],
+                datas['music']
+            )
+        )
 
     check_dir(directory)
-
-    # Mad-Max Clear song name to Determine them
-    name = (
-        "%s%s - %s"
-        % (
-            directory,
-            datas['artist'],
-            datas['music']
-        )
-    )
 
     out = download(
         directory, name,
