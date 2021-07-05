@@ -192,73 +192,8 @@ def download_trackdee(
     datas['isrc'] = url['isrc']
     album = var_excape(datas['album'])
 
-    # Plex friendly structure
-    if plexnaming == True:
-        directory = (
-            "%s/%s/%s/"
-            % (
-                output,
-                datas['ar_album'],
-                album
-            )
-        )
-
-        name = (
-            "%s%s - %s"
-            % (
-                directory,
-                datas['tracknum'],
-                datas['music']
-            )
-        )
-
-        # Mad-Max A more useable humandreadable Structure
-    elif humannaming == True:
-        # Mad-Max Replace Artist by using the album Artist. Get rid of Fearturings
-        if datas['ar_album'] == "Various Artists":
-            datas['ar_album'] = datas['artist']
-        else:
-            datas['artist'] = datas['ar_album']
-
-        directory = (
-            "%s/%s/"
-            % (
-                output,
-                datas['ar_album']
-            )
-        )
-
-        name = (
-            "%s%s - %s"
-            % (
-                directory,
-                datas['ar_album'],
-                datas['music']
-            )
-        )
-    else:
-        # I didn't found the original code for the naming so this one is the fallback
-        if datas['ar_album'] == "Various Artists":
-            datas['ar_album'] = datas['artist']
-        else:
-            datas['artist'] = datas['ar_album']
-
-        directory = (
-            "%s/%s/"
-            % (
-                output,
-                datas['ar_album']
-            )
-        )
-
-        name = (
-            "%s%s - %s"
-            % (
-                directory,
-                datas['ar_album'],
-                datas['music']
-            )
-        )
+    name, directory = create_naming(
+        datas, output, plexnaming, humannaming, album)
 
     check_dir(directory)
 
@@ -343,20 +278,8 @@ def download_albumdee(
     datas['ar_album'] = " & ".join(datas['ar_album'])
     album = var_excape(datas['album'])
 
-    # Mad-Max Replace Artist by using the album Artist. Get rid of Fearturings
-    if datas['ar_album'] == "Various Artists":
-        datas['ar_album'] = datas['artist']
-    else:
-        datas['artist'] = datas['ar_album']
-
-    # Mad-Max A more useable Structure
-    directory = (
-        "%s/%s/"
-        % (
-            output,
-            datas['artist']
-        )
-    )
+    name, directory = create_naming(
+        datas, output, plexnaming, humannaming, album)
 
     check_dir(directory)
 
@@ -562,32 +485,8 @@ def download_trackspo(
     datas['isrc'] = url['external_ids']['isrc']
     album = var_excape(datas['album'])
 
-    # Mad-Max Replace Artist by using the album Artist. Get rid of Fearturings
-    if datas['ar_album'] == "Various Artists":
-        datas['ar_album'] = datas['artist']
-    else:
-        datas['artist'] = datas['ar_album']
-
-    # Mad-Max A more useable Structure
-    directory = (
-        "%s/%s/"
-        % (
-            output,
-            datas['artist']
-        )
-    )
-
-    check_dir(directory)
-
-    # Mad-Max Clear song name to Determine them
-    name = (
-        "%s%s - %s"
-        % (
-            directory,
-            datas['artist'],
-            datas['music']
-        )
-    )
+    name, directory = create_naming(
+        datas, output, plexnaming, humannaming, album)
 
     out = download(
         directory, name,
@@ -647,20 +546,8 @@ def download_albumspo(
     detas['isrc'] = ""
     album = var_excape(detas['album'])
 
-    # Mad-Max Replace Artist by using the album Artist. Get rid of Fearturings
-    if datas['ar_album'] == "Various Artists":
-        datas['ar_album'] = datas['artist']
-    else:
-        datas['artist'] = datas['ar_album']
-
-    # Mad-Max A more useable Structure
-    directory = (
-        "%s/%s/"
-        % (
-            output,
-            datas['artist']
-        )
-    )
+    name, directory = create_naming(
+        datas, output, plexnaming, humannaming, album)
 
     check_dir(directory)
     tot = url['total_tracks']
