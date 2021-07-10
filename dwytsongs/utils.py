@@ -133,7 +133,12 @@ def write_tags(song, data):
 
 def create_naming(datas, output, plexnaming, humannaming, album):
     # Plex friendly structure
-    if plexnaming == 'True':
+    if plexnaming is True:
+        if datas['ar_album'] == "Various Artists":
+            datas['ar_album'] = datas['artist']
+
+        datas['tracknum'].zfill(2)
+
         directory = (
             "%s/%s/%s/"
             % (
@@ -153,7 +158,7 @@ def create_naming(datas, output, plexnaming, humannaming, album):
         )
 
     # Mad-Max A more useable humandreadable Structure
-    elif humannaming == 'True':
+    elif humannaming is True:
         # Mad-Max Replace Artist by using the album Artist. Get rid of Fearturings
         if datas['ar_album'] == "Various Artists":
             datas['ar_album'] = datas['artist']
